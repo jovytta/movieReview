@@ -8,8 +8,43 @@
 import SwiftUI
 
 struct ToWatchListView: View {
+
+
+    // Use the shared movie store
+    let toWatchMovies: [Movie] = MovieStore.shared.toWatchList
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                Section() {
+                    ForEach(toWatchMovies) { movie in
+                        NavigationLink(value: movie) {
+                            HStack {
+                                Image(movie.posterName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 90)
+                                    .clipped()
+                                    .cornerRadius(8)
+
+                                VStack(alignment: .leading) {
+                                    Text(movie.title)
+                                        .font(.headline)
+                                    Text(movie.genre)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.vertical, 4)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("To Watch List")
+            .navigationDestination(for: Movie.self) { movie in
+                MovieDetailView(movie: movie)
+            }
+        }
     }
 }
 

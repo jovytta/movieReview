@@ -7,15 +7,23 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            AllMoviesView()
+                .tabItem {
+                    Label("Movies", systemImage: "list.star")
+                }
+            ToWatchListView()
+                   .tabItem {
+                       Label("To Watch", systemImage: "bookmark")
+                   }
+            ProfileView()
+                .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
         }
-        .padding()
     }
 }
 
